@@ -22,6 +22,7 @@ app.get('/', function(req, res) {
   if (req.session.notes) {
     app.locals.notes = req.session.notes;
     req.session.notes = null;
+    req.session.destroy();
   }
   return res.render('./index.html');
 });
