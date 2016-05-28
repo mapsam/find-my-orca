@@ -1,0 +1,24 @@
+<% include includes/head.html %>
+<body>
+  <div class="container">
+    <h1>Found a card?</h1>
+
+    <p>Enter the ORCA Card number and your email address below. If the card owner has registered their card they will be notified that you have found it. Your email address will be shared with them so they can contact you to return it.</p>
+
+    <% if (typeof notes !== 'undefined') { %>
+      <% notes.forEach(function(note) { %>
+        <div class="note round <%= note.type %>"><%= note.message %></div>
+      <% }); %>
+    <% } %>
+
+    <form action="/found" method="post">
+      <input class="round" name="orcaid" type="number" placeholder="Orca ID">
+      <input class="round" name="sorcaid" type="number" placeholder="Orca Secondary ID" maxlength="3">
+      <input class="round" name="findersemail" type="email" placeholder="Email">
+      <input class="round" type="submit" value="submit">
+    </form>
+  </div>
+
+  <script src="/site.js" type="text/javascript"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<% include includes/head.html %>
+<body>
+
+<div class="container">
+  <% if (typeof notes !== 'undefined') { %>
+    <% notes.forEach(function(note) { %>
+      <div class="note round <%= note.type %>"><%= note.message %></div>
+    <% }); %>
+  <% } %>
+
+  <h1>Find My ORCA</h1>
+
+  <p><strong>Lost your ORCA Card?</strong> If you know your ORCA Card number, register your card. If someone has already found it, you'll get an email with their contact information so you can coordinate how to get it back.</p>
+
+  <a class="button" href="/register">Register your ORCA card</a>
+
+  <p><strong>Found someone else's ORCA Card?</strong> Enter the ORCA Card number. If the owner has registered their card they will be notified via email right away and you can coordinate how to return their card. If they have not registered the card, the card will go into the database, ready to be found by someone who registers.</p>
+
+  <a class="button" href="/found">I found an ORCA Card</a>
+
+  <p><small>This is a project created by Seattleites who have lost their ORCA card too many times. Source code available on <a href="#">GitHub</a>.</small></p>
+  
+</div>
+
+<script src="/site.js" type="text/javascript"></script>
+</body>
+</html>

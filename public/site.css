@@ -1,0 +1,97 @@
+* {
+  -webkit-box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  box-sizing:border-box;
+}
+body {
+  background: #2e52a2;
+  color: #f6f6f6;
+  font-size: 16px;
+  font-family: 'Muli', sans-serif;
+}
+a {
+  color: #f6f6f6;
+}
+p strong {
+  color: #15274d;
+}
+
+.container {
+  margin: auto;
+  max-width: 500px;
+  padding: 1em;
+}
+.round {
+  border-radius: 3px;
+}
+
+.button {
+  padding: 1em;
+  color: white;
+  background: #244181;
+  text-decoration: none;
+  display: inline-block;
+}
+.button:hover {
+  background: #1c3467;
+}
+.button.full {
+  width: 100%;
+}
+.button.white {
+  background: white;
+  color: #244181;
+}
+.button.white:hover {
+  background: #f6f6f6;
+}
+.button.green {
+  background: #57b497;
+}
+
+
+.note {
+  display: block;
+  padding: 1em;
+  margin-bottom: 20px;
+}
+.note.info {
+  background-color: #244181;
+}
+.note.error {
+  background-color: #b45774;
+}
+.note.success {
+  background-color: #57b497;
+}
+
+
+input {
+  display: block;
+  border: none;
+  width: 100%;
+  font-size: 1.3em;
+  padding: 0.5em;
+  margin-bottom: 20px;
+}
+input[type=text],
+input[type=email],
+input[type=number] {
+  opacity: 0.6;
+}
+input[type=text]:focus,
+input[type=email]:focus,
+input[type=number]:focus {
+  opacity: 1;
+}
+input[type=submit] {
+  color: white;
+  font-size: 1em;
+  text-transform: uppercase;
+  background: #172951;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  padding: 1em;
+  font-weight: 900;
+}
