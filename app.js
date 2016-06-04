@@ -10,7 +10,7 @@ var express = require('express'),
 // var docClient = new AWS.DynamoDB.DocumentClient();
 var app = express();
 module.exports.app = app;
-app.set('port', (process.env.PORT || 5000));
+app.set('port', (process.env.PORT || 8081));
 app.engine('html', require('ejs').renderFile);
 app.use(bodyParser.json()); 
 app.use(session({secret: uuid.v4()}));
