@@ -1,7 +1,7 @@
 var express = require('express'),
     ejs = require('ejs'),
     bodyParser = require('body-parser'),
-    session = require('express-session'),
+    // session = require('express-session'),
     uuid = require('node-uuid'),
     validate = require('./lib/validation.js'),
     db = require('./lib/db.js');
