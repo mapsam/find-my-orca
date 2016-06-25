@@ -13,7 +13,11 @@ module.exports.app = app;
 app.set('port', (process.env.PORT || 8081));
 app.engine('html', require('ejs').renderFile);
 app.use(bodyParser.json()); 
-app.use(session({secret: uuid.v4()}));
+app.use(session({
+  secret: uuid.v4(),
+  resave: false,
+  saveUninitialized: false
+}));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/public'));
 
