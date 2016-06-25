@@ -1,7 +1,6 @@
 var express = require('express'),
     ejs = require('ejs'),
     bodyParser = require('body-parser'),
-    session = require('express-session'),
     uuid = require('node-uuid'),
     validate = require('./lib/validation.js'),
     db = require('./lib/db.js');
@@ -13,21 +12,23 @@ module.exports.app = app;
 app.set('port', (process.env.PORT || 8081));
 app.engine('html', require('ejs').renderFile);
 app.use(bodyParser.json()); 
-app.use(session({
-  secret: uuid.v4(),
-  resave: false,
-  saveUninitialized: false
-}));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/public'));
 
 // routes
 app.get('/', function(req, res) {
-  if (req.session.notes) {
-    app.locals.notes = req.session.notes;
-    req.session.notes = null;
-    req.session.destroy();
+  if (req.query.status === 'success') {
+    res.locals.notes = [{type: 'success', message: 'ORCA ID added successfully!'}];
   }
+
+  if (req.query.status === 'found') {
+    res.locals.notes = [{type: 'success', message: 'We found a matching ORCA ID! The owner has been notified via email.'}]
+  }
+
+  if (req.query.status === 'added') {
+    res.locals.notes = [{type: 'info', message: 'The ORCA ID has not been registered. It has been added to the database.'}];
+  }
+
   return res.render('./index.html');
 });
 
@@ -38,20 +39,15 @@ app.get('/register', function(req, res) {
 app.post('/register', function(req, res) {
   validate(req.body, true, function(errors) {
     if (errors) {
-      console.log('validation error')
-      app.locals.notes = errors;
-      return res.render('./register.html');
+      return res.render('./register.html', {notes: errors});
     }
 
     db.register(req.body, function(err, data) {
       if (err) {
-        console.log('already exists')
-        app.locals.notes = [err];
-        return res.render('./register.html');
+        return res.render('./register.html', {notes: [err]});
       }
 
-      req.session.notes = [{type: 'success', message: 'ORCA ID added successfully!'}];
-      return res.redirect('/');
+      return res.redirect('/?status=success');
     });
   });
 });
@@ -63,18 +59,15 @@ app.get('/found', function(req, res) {
 app.post('/found', function(req, res) {
   validate(req.body, false, function(errors) {
     if (errors) {
-      app.locals.notes = errors;
-      return res.render('./found.html');
+      return res.render('./found.html', {notes: errors});
     }
 
     db.found(req.body, function(err, data) {
       if (err) {
-        app.locals.notes = [err];
-        return res.render('./found.html');
+        return res.render('./found.html', {notes: [err]});
       }
 
-      req.session.notes = data;
-      return res.redirect('/');
+      return res.redirect('/?status=' + data);
     });
   });
 });
